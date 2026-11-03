@@ -51,7 +51,7 @@ const MovieDetails = ({ movie }) => {
         <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
         <Chip
           icon={<MonetizationIcon />}
-          label={`${movie.revenue.toLocaleString()}`}
+          label={movie.revenue ? movie.revenue.toLocaleString() : "No revenue data"}
         />
         <Chip
           icon={<StarRate />}
