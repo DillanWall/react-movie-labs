@@ -46,3 +46,5 @@ const PopularMoviesPage = () => {
         />
     );
 }
+
+export default PopularMoviesPage;
