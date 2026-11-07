@@ -5,7 +5,6 @@ import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
 import WriteReview from "../components/cardIcons/writeReview";
 import Spinner from "../components/spinner";
 
-
 const PopularMoviesPage = () => {
     const [movies, setMovies] = useState([]);
     const [error, setError] = useState(null);
