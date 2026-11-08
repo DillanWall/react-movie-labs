@@ -2,6 +2,7 @@ import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -54,25 +55,24 @@ const SiteHeader = () => {
         <>
             <AppBar position="fixed" sx={{ backgroundColor: "#0d253f" }}>
                 <Toolbar>
-                    <Typography
-                        variant="h4"
-                        sx={{
-                            flexGrow: 1,
-                            display: "flex",
-                            alignItems: "center",
-                            fontFamily: "Broadway, sans-serif",
-                        }}
-                    >
+                    <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
                         <img
                             src={logo}
                             alt=""
                             style={{ width: 40, height: 40, objectFit: "contain", marginRight: 8 }}
                         />
-                        TMDB Client
-                    </Typography>
-                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                        All you ever wanted to know about Movies!
-                    </Typography>
+                        <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                            <Typography
+                                variant="h4"
+                                sx={{ fontFamily: "Broadway, sans-serif" }}
+                            >
+                                TMDB Client
+                            </Typography>
+                            <Typography variant="subtitle2" sx={{ fontFamily: "Garamond, sans-serif" }}>
+                                All you ever wanted to know about Movies!
+                            </Typography>
+                        </Box>
+                    </Box>
                     {isMobile ? (
                         <>
                             <IconButton
