@@ -6,9 +6,11 @@ import StarRate from "@mui/icons-material/StarRate";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import GroupsIcon from "@mui/icons-material/Groups";
 import Fab from "@mui/material/Fab";
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import Drawer from "@mui/material/Drawer";
+import { Link } from "react-router";
 import MovieReviews from "../movieReviews"
 import MovieCredits from "../movieCredits";
 
@@ -75,6 +77,15 @@ const MovieDetails = ({ movie }) => {
           </li>
         ))}
       </Paper>
+      <Button
+        component={Link}
+        to={`/movies/${movie.id}/recommendations`}
+        variant="contained"
+        color="primary"
+        sx={{ display: "flex", width: "fit-content", mx: "auto" }}
+      >
+        View Recommendations
+      </Button>
       <Fab
         color="secondary"
         variant="extended"
