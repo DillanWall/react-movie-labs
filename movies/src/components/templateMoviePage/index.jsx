@@ -20,8 +20,7 @@ const TemplateMoviePage = ({ movie, children }) => {
         return <h1>{error.message}</h1>;
     }
 
-    const images = data.posters
-
+    const images = data.posters.filter((image) => image.iso_639_1 === "en");
 
     return (
         <>
