@@ -4,11 +4,13 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import MonetizationIcon from "@mui/icons-material/MonetizationOn";
 import StarRate from "@mui/icons-material/StarRate";
 import NavigationIcon from "@mui/icons-material/Navigation";
+import GroupsIcon from "@mui/icons-material/Groups";
 import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews"
+import MovieCredits from "../movieCredits";
 
 const root = {
   display: "flex",
@@ -21,7 +23,8 @@ const root = {
 const chip = { margin: 0.5 };
 
 const MovieDetails = ({ movie }) => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [reviewsDrawerOpen, setReviewsDrawerOpen] = useState(false);
+  const [creditsDrawerOpen, setCreditsDrawerOpen] = useState(false);
 
 
   return (
@@ -75,7 +78,7 @@ const MovieDetails = ({ movie }) => {
       <Fab
         color="secondary"
         variant="extended"
-        onClick={() => setDrawerOpen(true)}
+        onClick={() => setReviewsDrawerOpen(true)}
         sx={{
           position: 'fixed',
           bottom: '1em',
@@ -85,8 +88,24 @@ const MovieDetails = ({ movie }) => {
         <NavigationIcon />
         Reviews
       </Fab>
-      <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+      <Fab
+        color="primary"
+        variant="extended"
+        onClick={() => setCreditsDrawerOpen(true)}
+        sx={{
+          position: 'fixed',
+          bottom: '5em',
+          right: '1em'
+        }}
+      >
+        <GroupsIcon />
+        Credits
+      </Fab>
+      <Drawer anchor="top" open={reviewsDrawerOpen} onClose={() => setReviewsDrawerOpen(false)}>
         <MovieReviews movie={movie} />
+      </Drawer>
+      <Drawer anchor="top" open={creditsDrawerOpen} onClose={() => setCreditsDrawerOpen(false)}>
+        <MovieCredits movie={movie} />
       </Drawer>
 
     </>
