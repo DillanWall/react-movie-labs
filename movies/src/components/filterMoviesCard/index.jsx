@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
@@ -45,7 +44,7 @@ export default function FilterMoviesCard(props) {
     props.onUserInput(type, value);
   };
 
-  const handleTextChange = (e, props) => {
+  const handleTextChange = (e) => {
     handleChange(e, "name", e.target.value);
   };
 
@@ -69,7 +68,7 @@ export default function FilterMoviesCard(props) {
       <CardContent>
         <Typography variant="h5" component="h1">
           <SearchIcon fontSize="large" />
-          Filter the movies.
+          Filter movies
         </Typography>
         <TextField
           sx={{ ...formControl }}
@@ -85,6 +84,7 @@ export default function FilterMoviesCard(props) {
           <Select
             labelId="genre-label"
             id="genre-select"
+            label="Genre"
             value={selectedGenre}
             onChange={handleGenreChange}
           >
@@ -106,7 +106,7 @@ export default function FilterMoviesCard(props) {
       <CardContent>
         <Typography variant="h5" component="h1">
           <SearchIcon fontSize="large" />
-          Filter the movies.
+          Filter movies
           <br />
         </Typography>
       </CardContent>
