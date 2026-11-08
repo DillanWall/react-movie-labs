@@ -70,14 +70,14 @@ export default function FilterMoviesCard(props) {
       }}
       variant="outlined">
       <CardContent>
-        <Typography variant="h5" component="h1">
-          <SearchIcon fontSize="large" />
+        <Typography variant="h5" component="h1" sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <SearchIcon fontSize="inherit" />
           Filter movies
         </Typography>
         <TextField
           sx={{ ...formControl }}
           id="filled-search"
-          label="Search field"
+          label="Search by Name"
           type="search"
           variant="filled"
           value={props.titleFilter}
@@ -108,8 +108,8 @@ export default function FilterMoviesCard(props) {
         title="Filter"
       />
       <CardContent>
-        <Typography variant="h5" component="h1">
-          <SearchIcon fontSize="large" />
+        <Typography variant="h5" component="h1" sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <SearchIcon fontSize="inherit" />
           Filter movies
           <br />
         </Typography>

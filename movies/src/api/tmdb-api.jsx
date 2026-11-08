@@ -1,73 +1,28 @@
-export const getMovies = () => {
-    return fetch(
-        `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
-    ).then((response) => {
-        if (!response.ok) {
-            return response.json().then((error) => {
-                throw new Error(error.status_message || "Something went wrong");
-            });
-        }
-        return response.json();
-    })
-        .catch((error) => {
-            throw error
-        });
+const fetchMoviePage = async (path, page, additionalParams = "") => {
+    const response = await fetch(
+        `https://api.themoviedb.org/3/${path}?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US${additionalParams}&page=${page}`
+    );
+    if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.status_message || "Something went wrong");
+    }
+    return response.json();
 };
 
+export const getMovies = (page = 1) =>
+    fetchMoviePage("discover/movie", page, "&include_adult=false&include_video=false");
 
-export const getUpcomingMovies = () => {
-    return fetch(
-        `https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
-    )
-        .then(res => res.json())
-        .then(json => json.results);
-};
+export const getUpcomingMovies = (page = 1) =>
+    fetchMoviePage("movie/upcoming", page);
 
-export const getTopRatedMovies = () => {
-    return fetch(
-        `https://api.themoviedb.org/3/movie/top_rated?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
-    )
-        .then((response) => {
-            if (!response.ok) {
-                return response.json().then((error) => {
-                    throw new Error(error.status_message || "Something went wrong");
-                });
-            }
-            return response.json();
-        })
-        .then((json) => json.results);
-}
+export const getTopRatedMovies = (page = 1) =>
+    fetchMoviePage("movie/top_rated", page);
 
-export const getPopularMovies = () => {
-    return fetch(
-        `https://api.themoviedb.org/3/movie/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
-    )
-        .then((response) => {
-            if (!response.ok) {
-                return response.json().then((error) => {
-                    throw new Error(error.status_message || "Something went wrong");
-                }
-                );
-            }
-            return response.json();
-        })
-        .then((json) => json.results);
-}
+export const getPopularMovies = (page = 1) =>
+    fetchMoviePage("movie/popular", page);
 
-export const getNowPlayingMovies = () => {
-    return fetch(
-        `https://api.themoviedb.org/3/movie/now_playing?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
-    )
-        .then((response) => {
-            if (!response.ok) {
-                return response.json().then((error) => {
-                    throw new Error(error.status_message || "Something went wrong");
-                });
-            }
-            return response.json();
-        })
-        .then((json) => json.results);
-}
+export const getNowPlayingMovies = (page = 1) =>
+    fetchMoviePage("movie/now_playing", page);
 
 export const getMovie = (args) => {
     //console.log(args)
@@ -194,17 +149,7 @@ export const getPersonMovieCredits = ({ queryKey }) => {
 };
 
 export const getMovieRecommendations = ({ queryKey }) => {
-    const [, idPart] = queryKey;
+    const [, idPart, page = 1] = queryKey;
     const { id } = idPart;
-    return fetch(
-        `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
-    ).then((response) => {
-        if (!response.ok) {
-            return response.json().then((error) => {
-                throw new Error(error.status_message || "Something went wrong");
-            });
-        }
-        return response.json();
-    })
-        .then((json) => json.results);
+    return fetchMoviePage(`movie/${id}/recommendations`, page);
 };

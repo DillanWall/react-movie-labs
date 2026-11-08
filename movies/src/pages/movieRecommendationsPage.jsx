@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { getMovieRecommendations } from "../api/tmdb-api";
@@ -8,10 +9,13 @@ import Spinner from "../components/spinner";
 
 const MovieRecommendationsPage = () => {
     const { id } = useParams();
+    const [pagination, setPagination] = useState({ id, page: 1 });
+    const page = pagination.id === id ? pagination.page : 1;
     const { data: movies, error, isPending, isError } = useQuery({
-        queryKey: ["recommendations", { id }],
+        queryKey: ["recommendations", { id }, page],
         queryFn: getMovieRecommendations,
     });
+    const handlePageChange = (newPage) => setPagination({ id, page: newPage });
 
     if (isPending) {
         return <Spinner />;
@@ -24,7 +28,10 @@ const MovieRecommendationsPage = () => {
     return (
         <PageTemplate
             title="Recommended Movies"
-            movies={movies}
+            movies={movies.results}
+            page={page}
+            totalPages={movies.total_pages}
+            onPageChange={handlePageChange}
             action={(movie) => (
                 <>
                     <AddToFavoritesIcon movie={movie} />

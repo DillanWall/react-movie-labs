@@ -1,4 +1,5 @@
 import { Link as RouterLink, useParams } from "react-router";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Container from "@mui/material/Container";
 import List from "@mui/material/List";
@@ -6,11 +7,14 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
+import Pagination from "@mui/material/Pagination";
 import { getPerson, getPersonMovieCredits } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 
 const PersonMoviesPage = () => {
     const { personId } = useParams();
+    const [pagination, setPagination] = useState({ personId, page: 1 });
+    const page = pagination.personId === personId ? pagination.page : 1;
     const personQuery = useQuery({
         queryKey: ["person", { id: personId }],
         queryFn: getPerson,
@@ -37,6 +41,13 @@ const PersonMoviesPage = () => {
             allMovies.findIndex((entry) => entry.id === movie.id) === index
         )
         .sort((a, b) => (b.release_date ?? "").localeCompare(a.release_date ?? ""));
+    const moviesPerPage = 20;
+    const pageCount = Math.ceil(movies.length / moviesPerPage);
+    const currentPage = Math.min(page, Math.max(pageCount, 1));
+    const displayedMovies = movies.slice(
+        (currentPage - 1) * moviesPerPage,
+        currentPage * moviesPerPage
+    );
 
     return (
         <Container maxWidth="md" sx={{ py: 3 }}>
@@ -47,7 +58,7 @@ const PersonMoviesPage = () => {
                 <Typography sx={{ mt: 2 }}>No movie credits available.</Typography>
             ) : (
                 <List>
-                    {movies.map((movie) => (
+                    {displayedMovies.map((movie) => (
                         <ListItem key={movie.id} disablePadding>
                             <ListItemButton component={RouterLink} to={`/movies/${movie.id}`}>
                                 <ListItemText
@@ -60,6 +71,16 @@ const PersonMoviesPage = () => {
                         </ListItem>
                     ))}
                 </List>
+            )}
+            {pageCount > 1 && (
+                <Pagination
+                    count={pageCount}
+                    page={currentPage}
+                    onChange={(_event, newPage) => setPagination({ personId, page: newPage })}
+                    color="primary"
+                    aria-label="Filmography pagination"
+                    sx={{ display: "flex", justifyContent: "center", mt: 2 }}
+                />
             )}
         </Container>
     );
