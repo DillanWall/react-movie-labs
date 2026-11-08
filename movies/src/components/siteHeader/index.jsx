@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
 import EventIcon from "@mui/icons-material/Event";
 import StarIcon from "@mui/icons-material/Star";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
@@ -33,6 +34,7 @@ const SiteHeader = () => {
     const menuOptions = [
         { label: "Home", path: "/", icon: HomeIcon },
         { label: "Favorites", path: "/movies/favorites", icon: FavoriteBorderIcon },
+        { label: "Playlist", path: "/movies/playlist", icon: PlaylistPlayIcon },
         { label: "Upcoming", path: "/movies/upcoming", icon: EventIcon },
         { label: "Top Rated", path: "/movies/top-rated", icon: StarIcon },
         { label: "Popular", path: "/movies/popular", icon: WhatshotIcon },
