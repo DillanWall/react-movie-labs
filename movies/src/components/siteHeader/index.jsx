@@ -11,6 +11,7 @@ import { useNavigate } from "react-router";
 import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import logo from "../../images/OIP-4240120040.jpg";
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
@@ -45,7 +46,20 @@ const SiteHeader = () => {
         <>
             <AppBar position="fixed" color="secondary">
                 <Toolbar>
-                    <Typography variant="h4" sx={{ flexGrow: 1 }}>
+                    <Typography
+                        variant="h4"
+                        sx={{
+                            flexGrow: 1,
+                            display: "flex",
+                            alignItems: "center",
+                            fontFamily: "Broadway, sans-serif",
+                        }}
+                    >
+                        <img
+                            src={logo}
+                            alt=""
+                            style={{ width: 40, height: 40, objectFit: "contain", marginRight: 8 }}
+                        />
                         TMDB Client
                     </Typography>
                     <Typography variant="h6" sx={{ flexGrow: 1 }}>
