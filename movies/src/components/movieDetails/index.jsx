@@ -116,7 +116,7 @@ const MovieDetails = ({ movie }) => {
         <MovieReviews movie={movie} />
       </Drawer>
       <Drawer anchor="top" open={creditsDrawerOpen} onClose={() => setCreditsDrawerOpen(false)}>
-        <MovieCredits movie={movie} />
+        <MovieCredits movie={movie} showFullCreditsLink />
       </Drawer>
 
     </>

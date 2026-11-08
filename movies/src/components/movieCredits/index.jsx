@@ -6,11 +6,15 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
 import { useQuery } from "@tanstack/react-query";
+import { Link as RouterLink, useNavigate } from "react-router";
 import { getMovieCredits } from "../../api/tmdb-api";
 import Spinner from "../spinner";
 
-export default function MovieCredits({ movie }) {
+export default function MovieCredits({ movie, linkActors = false, showFullCreditsLink = false }) {
+    const navigate = useNavigate();
     const { data, error, isPending, isError } = useQuery({
         queryKey: ["credits", { id: movie.id }],
         queryFn: getMovieCredits,
@@ -28,6 +32,7 @@ export default function MovieCredits({ movie }) {
     const crew = data.crew || [];
 
     return (
+        <>
         <TableContainer component={Paper}>
             <Typography variant="h5" component="h2" sx={{ p: 2 }}>
                 {movie.title} Credits
@@ -47,7 +52,11 @@ export default function MovieCredits({ movie }) {
                         {cast.map((person) => (
                             <TableRow key={`cast-${person.credit_id}`}>
                                 <TableCell component="th" scope="row">
-                                    {person.name}
+                                    {linkActors ? (
+                                        <Link component={RouterLink} to={`/people/${person.id}/movies`}>
+                                            {person.name}
+                                        </Link>
+                                    ) : person.name}
                                 </TableCell>
                                 <TableCell>{person.character}</TableCell>
                                 <TableCell>Cast</TableCell>
@@ -66,5 +75,15 @@ export default function MovieCredits({ movie }) {
                 </Table>
             )}
         </TableContainer>
+        {showFullCreditsLink && (
+            <Button
+                variant="contained"
+                onClick={() => navigate(`/movies/${movie.id}/credits`)}
+                sx={{ m: 2 }}
+            >
+                View full credits
+            </Button>
+        )}
+        </>
     );
 }
