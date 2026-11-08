@@ -5,6 +5,12 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import MenuIcon from "@mui/icons-material/Menu";
+import HomeIcon from "@mui/icons-material/Home";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import EventIcon from "@mui/icons-material/Event";
+import StarIcon from "@mui/icons-material/Star";
+import WhatshotIcon from "@mui/icons-material/Whatshot";
+import MovieIcon from "@mui/icons-material/Movie";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router";
@@ -25,12 +31,12 @@ const SiteHeader = () => {
     const navigate = useNavigate();
 
     const menuOptions = [
-        { label: "Home", path: "/" },
-        { label: "Favorites", path: "/movies/favorites" },
-        { label: "Upcoming", path: "/movies/upcoming" },
-        { label: "Top Rated", path: "/movies/top-rated" },
-        { label: "Popular", path: "/movies/popular" },
-        { label: "Now Playing", path: "/movies/now-playing" },
+        { label: "Home", path: "/", icon: HomeIcon },
+        { label: "Favorites", path: "/movies/favorites", icon: FavoriteBorderIcon },
+        { label: "Upcoming", path: "/movies/upcoming", icon: EventIcon },
+        { label: "Top Rated", path: "/movies/top-rated", icon: StarIcon },
+        { label: "Popular", path: "/movies/popular", icon: WhatshotIcon },
+        { label: "Now Playing", path: "/movies/now-playing", icon: MovieIcon },
     ];
 
     const handleMenuSelect = (pageURL) => {
@@ -44,7 +50,7 @@ const SiteHeader = () => {
 
     return (
         <>
-            <AppBar position="fixed" color="secondary">
+            <AppBar position="fixed" sx={{ backgroundColor: "#0d253f" }}>
                 <Toolbar>
                     <Typography
                         variant="h4"
@@ -96,6 +102,7 @@ const SiteHeader = () => {
                                         key={opt.label}
                                         onClick={() => handleMenuSelect(opt.path)}
                                     >
+                                        <opt.icon fontSize="small" sx={{ mr: 1 }} />
                                         {opt.label}
                                     </MenuItem>
                                 ))}
@@ -107,6 +114,7 @@ const SiteHeader = () => {
                                 <Button
                                     key={opt.label}
                                     color="inherit"
+                                    startIcon={<opt.icon />}
                                     onClick={() => handleMenuSelect(opt.path)}
                                 >
                                     {opt.label}

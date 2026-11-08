@@ -62,7 +62,7 @@ export default function FilterMoviesCard(props) {
   return (
     <Card
       sx={{
-        backgroundColor: "rgb(204, 204, 0)",
+        backgroundColor: "#01b4e4",
         fontFamily: "Calibri, sans-serif",
         "& .MuiTypography-root, & .MuiInputBase-root, & .MuiInputLabel-root, & .MuiMenuItem-root": {
           fontFamily: "Calibri, sans-serif"
